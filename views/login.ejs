@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="76982388869-9b8cvq77sa9034b2mgpq5fo5trcjk2t3.apps.googleusercontent.com">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+
+<body>
+    <h1>Login</h1>
+    
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+    <script>
+        async function onSignIn(googleUser) {
+            // console.log(googleUser)
+            var authresponse = googleUser.getAuthResponse(true)
+            console.log(authresponse)
+            var accesstoken = authresponse.access_token
+            await fetch('/userinfo',{
+                method: 'POST',
+                headers:{ 'Authorization': 'Bearer ' + accesstoken}
+            })
+            location.assign('/dashboard')
+        }
+
+    </script>  
+</body>
+
+</html>
